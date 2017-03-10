@@ -1,0 +1,185 @@
+.logo{
+    width: 150px;
+}
+.section1{
+    display: initial;
+}
+
+.section1 .navbar-fixed-top{
+    position: absolute;
+}
+.section1 .navbar-inverse{
+    background-color: transparent;
+    border:none;
+    height: 120px;
+}
+.section1 .navbar .navbar-header{
+    height: 120px;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus
+{
+    background-color: transparent;
+}
+.section1 .navbar-inverse .navbar-nav>li>a{
+    color: #ffffff;
+    background-color: transparent;
+}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+}
+.navbar-nav>li>a{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+@media (min-width: 768px){
+    .navbar-nav{
+        margin-top: 45px;
+    }
+}
+.section1 .carousel-inner .carousel,
+.section1 .carousel-inner .item,
+.section1 .carousel-inner .active {
+    height: 500px;
+}
+.section1 .carousel-inner {
+    height: 500px;
+}
+
+/* Background images are set within the HTML using inline CSS, not here */
+.section1 .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.sliderblack{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    padding-top: 100px;
+    color: #ffffff;
+    text-align: center;
+}
+.sliderblack h1{
+    font-size: 5vw;
+}
+
+/*search block strt*/
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+.searchblock{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.searchblock .nav-tabs>li{
+    width: 33.33%;
+}
+.searchblock .btn-default{
+    background-color: transparent;
+    border-color: #ffffff;
+}
+.searchblock .nav p{
+    color: #ffffff;
+    margin-top: 10px;
+}
+.searchblock .nav-tabs>li.active>a,.searchblock .nav-tabs>li.active>a:hover{
+    background-color: transparent;
+    border:none;
+}
+.searchblock .nav-tabs>li.active>a span, .searchblock .nav-tabs>li.active>a span:hover{
+    border:none;
+    background-color: #F59200;
+}
+.searchblock .nav-tabs>li.active>a p{
+    color: #F59200;
+    font-weight: bold;
+}
+.searchblock .nav>li>a:focus, .searchblock .nav>li>a:hover{
+    background-color: transparent;
+    border: none;
+}
+.searchblock .active{
+    height: 2px;
+}.searchblock .nav-tabs{
+    border:none;
+}
+/*search block end*/
+
+/* buttons*/
+.btn{
+    border-radius: 0px;
+}
+.btn-primary{
+    color: #fff;
+    background-color: #F59200;
+    border-color: #E28700;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #E28700;
+    border-color: #F59200;
+}
+.postads{
+    margin-right: 20px;
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.footertop{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.footer{
+    border-top: 2px solid #ddd;
+    padding-top: 20px;
+    background-color: #ffffff;;
+}
+.footer .list-group li{
+    list-style: none;
+}
+.footer a{
+    color:#989898;
+}
+@media (min-width: 768px){
+    .col5{
+        width: 20%;
+    }
+}
+@media (max-width: 768px){
+    .navbar-inverse .navbar-collapse{
+        background: rgba(0, 0, 0, 0.8);
+    }
+    .col5{
+        text-align: center;
+    }
+}

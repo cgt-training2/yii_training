@@ -8,7 +8,7 @@ use app\models\BranchSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\ForbiddenHttpException;
 /**
  * BranchController implements the CRUD actions for Branch model.
  */
@@ -20,6 +20,17 @@ class BranchController extends Controller
     public function behaviors()
     {
         return [
+            /*'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['branch'],
+                'rules' => [
+                    [
+                        'actions' => ['branch'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                ],
+            ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,15 +74,22 @@ class BranchController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Branch();
+        if(Yii::$app->user->can('create_branch')){
+            $model = new Branch();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->branch_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->branch_id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }    
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
         }
+        
     }
 
     /**
@@ -82,14 +100,20 @@ class BranchController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if(Yii::$app->user->can('update_branch')){
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->branch_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->branch_id]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
         }
     }
 
@@ -101,9 +125,15 @@ class BranchController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if(Yii::$app->user->can('delete_branch')){
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
+        }
     }
 
     /**

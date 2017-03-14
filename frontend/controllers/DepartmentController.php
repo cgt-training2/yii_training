@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Branch;
+use yii\web\ForbiddenHttpException;
 
 /**
  * DepartmentController implements the CRUD actions for Department model.
@@ -64,15 +65,22 @@ class DepartmentController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Department();
+        if(Yii::$app->user->can('create_department')){
+            $model = new Department();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->department_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->department_id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }    
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
         }
+        
     }
 
     /**
@@ -83,14 +91,20 @@ class DepartmentController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if(Yii::$app->user->can('update_department')){
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->department_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->department_id]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
         }
     }
 
@@ -102,9 +116,15 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if(Yii::$app->user->can('delete_department')){
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }else{
+            //throw new ForbiddenHttpException;
+            Yii::$app->session->setFlash('danger', 'You are not authorized!');
+            return $this->redirect(['index']);
+        }
     }
 
     /**

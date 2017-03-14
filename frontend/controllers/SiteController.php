@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\AuthItem;
 
 use app\models\EntryForm;
 /**
@@ -27,8 +28,15 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup','special-callback'],
                 'rules' => [
+                    [
+                        'actions' => ['special-callback'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return date('d-m') === '10-03';
+                        }
+                    ],
                     [
                         'actions' => ['signup'],
                         'allow' => true,
@@ -50,6 +58,10 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionSpecialCallback()
+    {
+        return $this->render('index');
+    }
     /**
      * @inheritdoc
      */
@@ -186,12 +198,13 @@ class SiteController extends Controller
     public function actionSignup()
     { 
         $model = new SignupForm();
+        
+        //find all user roll which type = 1 
+        $authItems = AuthItem::find()->where(['type' => '1'])->all();
 
         if ($model->load(Yii::$app->request->post())) {
             
             if ($user = $model->signup()) {
-               //echo '<pre>'; print_R($user);
-               //echo 'hi'; die;
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
@@ -200,6 +213,7 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
+            'authItems' => $authItems,
         ]);
     }
 

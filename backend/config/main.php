@@ -45,6 +45,15 @@ return [
             ],
         ],
         */
+        'request'=>[
+            'class' => 'common\components\Request',
+            'web'=> '/backend/web',
+            'adminUrl' => '/admin'
+        ],
+        'urlManager' => [
+                'enablePrettyUrl' => true,
+                'showScriptName' => false,
+        ],
     ],
     'params' => $params,
 ];

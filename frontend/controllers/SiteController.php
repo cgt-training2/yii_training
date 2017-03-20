@@ -13,6 +13,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
+use frontend\models\AuthItem;
+use app\models\EntryForm;
+
 /**
  * Site controller
  */
@@ -26,9 +29,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup','special-callback'],
                 'rules' => [
                     [
+                        'actions' => ['special-callback'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return date('d-m') === '10-03';
+                        }
+                    ],
+                    [
+
                         'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
@@ -49,6 +60,12 @@ class SiteController extends Controller
         ];
     }
 
+
+    public function actionSpecialCallback()
+    {
+        return $this->render('index');
+    }
+
     /**
      * @inheritdoc
      */
@@ -63,6 +80,43 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+
+    public function actionEntry()
+    {
+        $model = new EntryForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // valid data received in $model
+
+            // do something meaningful here about $model ...
+
+            return $this->render('entry-confirm', ['model' => $model]);
+        } else {
+            // either the page is initially displayed or there is some validation error
+            return $this->render('entry', ['model' => $model]);
+        }
+
+    }
+    public function actionSavex()
+    {
+       $model = new EntryForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // valid data received in $model
+
+            // do something meaningful here about $model ...
+
+            return $this->render('entry-confirm', ['model' => $model]);
+        } else {
+            // either the page is initially displayed or there is some validation error
+            return $this->render('entry', ['model' => $model]);
+        } 
+    }
+    public function actionSay($message = 'Hello')
+    {
+        return $this->render('say', ['message' => $message]);
     }
 
     /**
@@ -88,6 +142,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+           /*echo '<pre>';
+        print_r($model);
+        die;*/
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -147,9 +204,14 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {
+    { 
         $model = new SignupForm();
+        
+        //find all user roll which type = 1 
+        $authItems = AuthItem::find()->where(['type' => '1'])->all();
+
         if ($model->load(Yii::$app->request->post())) {
+            
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
@@ -159,6 +221,7 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
+            'authItems' => $authItems,
         ]);
     }
 

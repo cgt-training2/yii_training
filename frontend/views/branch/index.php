@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Branch', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(['id'=>'hello']); ?>    <?= GridView::widget([
+<?php  Pjax::begin(['id'=>'hello']); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [

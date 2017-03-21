@@ -107,25 +107,13 @@ DashboardAsset::register($this);
                             <i class="material-icons">person</i>
                             <p>User</p>
                         </a>
-                        <!--<ul>
-                            <li>
-                                <a href="<?php echo Yii::$app->homeUrl;?>user/create">
-                                    create
-                                </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo Yii::$app->homeUrl;?>update">
-                                    update
-                                </a>
-                            </li>
-                        </ul>-->
                     </li>
-                    <!--<li>
-                        <a href="maps.html">
-                            <i class="material-icons">location_on</i>
-                            <p>Maps</p>
+                    <li>
+                        <a href="<?php echo Yii::$app->homeUrl;?>userrole">
+                            <i class="material-icons">bubble_chart</i>
+                            <p>User Role</p>
                         </a>
-                    </li>-->
+                    </li>
                 </ul>
             </div>
     </div>

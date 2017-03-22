@@ -79,10 +79,22 @@ DashboardAsset::register($this);
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo Yii::$app->homeUrl;?>company">
+                        <a data-toggle="collapse" href="#pagesExamples" href="<?php echo Yii::$app->homeUrl;?>company">
                             <i class="material-icons">person</i>
-                            <p>Company</p>
+                            <p>Company </p>
                         </a>
+                        <div class="collapse" id="pagesExamples" aria-expanded="true" style="">
+                            <ul class="nav">
+                                <li><a href="<?php echo Yii::$app->homeUrl;?>company">
+                                    <i class="material-icons">play_arrow</i>
+                                    <p>Company List</p></a>    
+                                </li>
+                                <li><a href="<?php echo Yii::$app->homeUrl;?>company/create">
+                                    <i class="material-icons">play_arrow</i>
+                                    <p>Create Company</p></a>    
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a href="<?php echo Yii::$app->homeUrl;?>branch">
@@ -216,18 +228,26 @@ DashboardAsset::register($this);
 $(function(){
 
     var url = window.location.pathname, 
-        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); // create regexp to match current url pathname and remove trailing slash if present as it could collide with the link in navigation in case trailing slash wasn't present there
-        // now grab every link from the navigation
-        //alert(url);
+        urlRegExp = new RegExp(url.replace(/\/$/,'') + "$"); 
+
         $('.sidebar-wrapper .nav a').each(function(){
             // and test its normalized href against the url pathname regexp
             
             if(urlRegExp.test(this.href.replace(/\/$/,''))){
-                $(this).parent('li').addClass('active');
+                $(this).parent('li').addClass('active'); 
+                if($(this).parent('li').parent('ul').parent('div').parent('li').length > 0){
+                    $(this).parent('li').parent('ul').parent('div').parent('li').addClass('liactive1');
+                    $(this).parent('li').parent('ul').parent('div').prev('a').addClass('liactive');
+                    $(this).parent('li').parent('ul').parent('div').prev('a').click();
+                }else{
+                   // $(this).parent('li').addClass('active');    
+                }
             }else{
                 $(this).parent('li').removeClass('active');
             }
         });
+
+
 
 });
 </script>

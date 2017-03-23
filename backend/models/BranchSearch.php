@@ -76,4 +76,8 @@ class BranchSearch extends Branch
 
         return $dataProvider;
     }
+    public function count(){
+        $count = (new \yii\db\Query())->from('branch')->count();
+        return $count;
+    }
 }

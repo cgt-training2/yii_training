@@ -41,6 +41,7 @@ class Usercreate extends \yii\db\ActiveRecord
             [['username'], 'unique'],
             ['permission','string'],
             [['email'], 'unique'],
+            ['email','email'],
         ];
     }
 

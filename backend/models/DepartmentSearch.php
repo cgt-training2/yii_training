@@ -74,4 +74,8 @@ class DepartmentSearch extends Department
 
         return $dataProvider;
     }
+    public function count(){
+        $count = (new \yii\db\Query())->from('department')->count();
+        return $count;
+    }
 }

@@ -140,8 +140,12 @@ DashboardAsset::register($this);
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand " href="#">
-                    <?php $authAssignment = AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one(); ?>
-                    <b><?= Yii::$app->user->identity->username ?> [<?= $authAssignment->item_name; ?>]</b></a>
+                    <?php 
+                    if(Yii::$app->user->identity){
+                    $authAssignment = AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one(); ?>
+                    <b><?= Yii::$app->user->identity->username ?> [<?= $authAssignment->item_name; ?>]</b>
+                    <?php }?>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">

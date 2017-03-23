@@ -163,19 +163,22 @@ class ActionColumn extends Column
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
-                $iconb ='';
+                $iconb = $btnclass ='';
                 switch ($name) {
                     case 'view':
                         $title = Yii::t('yii', 'View');
                         $iconb = 'remove_red_eye';
+                        $btnclass ='btn btn-info';
                         break;
                     case 'update':
                         $title = Yii::t('yii', 'Update');
                         $iconb = 'edit';
+                        $btnclass ='btn btn-success';
                         break;
                     case 'delete':
                         $title = Yii::t('yii', 'Delete');
                         $iconb ='close';
+                        $btnclass ='btn btn-danger';
                         break;
                     default:
                         $title = ucfirst($name);
@@ -183,6 +186,7 @@ class ActionColumn extends Column
                 $options = array_merge([
                     'title' => $title,
                     'aria-label' => $title,
+                    //'class' => $btnclass,
                     'data-pjax' => '0',
                 ], $additionalOptions, $this->buttonOptions);
                 $icon = Html::tag('i', $iconb, ['class' => "material-icons"]);

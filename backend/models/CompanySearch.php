@@ -78,4 +78,8 @@ class CompanySearch extends Company
             ->orFilterWhere(['like', 'Company_status', $this->Company_name]);
         return $dataProvider;
     }
+    public function count(){
+        $count = (new \yii\db\Query())->from('company')->count();
+        return $count;
+    }
 }

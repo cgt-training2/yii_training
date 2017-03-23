@@ -15,12 +15,12 @@ $this->title = 'My Yii Application';
                         <i class="material-icons">content_copy</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Used Space</p>
-                        <h3 class="title">49/50<small>GB</small></h3>
+                        <p class="category">Company</p>
+                        <h3 class="title"><?php echo $companyCount; ?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+                            <a href="<?php echo Yii::$app->homeUrl;?>company">View full detail...</a>
                         </div>
                     </div>
                 </div>
@@ -31,12 +31,12 @@ $this->title = 'My Yii Application';
                         <i class="material-icons">store</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Revenue</p>
-                        <h3 class="title">$34,245</h3>
+                        <p class="category">Branch</p>
+                        <h3 class="title"><?php echo $brachCount ?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">remove_red_eye</i> <a href="<?php echo Yii::$app->homeUrl;?>branch">View full detail...</a>
                         </div>
                     </div>
                 </div>
@@ -47,12 +47,12 @@ $this->title = 'My Yii Application';
                         <i class="material-icons">info_outline</i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Fixed Issues</p>
-                        <h3 class="title">75</h3>
+                        <p class="category">Department</p>
+                        <h3 class="title"><?php echo $departmentCount; ?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Github
+                            <i class="material-icons">remove_red_eye</i> <a href="<?php echo Yii::$app->homeUrl;?>department">View full detail...</a>
                         </div>
                     </div>
                 </div>
@@ -61,15 +61,15 @@ $this->title = 'My Yii Application';
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header" data-background-color="blue">
-                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-user"></i>
                     </div>
                     <div class="card-content">
-                        <p class="category">Followers</p>
-                        <h3 class="title">+245</h3>
+                        <p class="category">Users</p>
+                        <h3 class="title"><?php echo $userCount; ?></h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">remove_red_eye</i> <a href="<?php echo Yii::$app->homeUrl;?>user">View full detail...</a>
                         </div>
                     </div>
                 </div>

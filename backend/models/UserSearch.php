@@ -73,4 +73,8 @@ class UserSearch extends Usercreate
 
         return $dataProvider;
     }
+    public function count(){
+        $count = (new \yii\db\Query())->from('user')->count();
+        return $count;
+    }
 }

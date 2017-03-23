@@ -6,7 +6,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-
+use app\models\BranchSearch;
+use app\models\CompanySearch;
+use app\models\DepartmentSearch;
+use backend\models\UserSearch;
 /**
  * Site controller
  */
@@ -59,8 +62,22 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-        return $this->render('index');
+    {   
+        $branchModel = new BranchSearch();
+        $brachCount = $branchModel->count();
+        $companyModel = new CompanySearch();
+        $companyCount = $companyModel->count();
+        $departmentModel = new DepartmentSearch();
+        $departmentCount = $departmentModel->count();
+        $userModel = new UserSearch();
+        $userCount = $userModel->count();
+
+        return $this->render('index', [
+                'brachCount' => $brachCount,
+                'companyCount' => $companyCount,
+                'departmentCount' => $departmentCount,
+                'userCount' => $userCount,
+            ]);
     }
 
     /**

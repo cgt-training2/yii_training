@@ -48,6 +48,9 @@ class BranchSearch extends Branch
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
         ]);
 
         $this->load($params);
@@ -75,5 +78,9 @@ class BranchSearch extends Branch
             ->andFilterWhere(['like', 'company.Company_name', $this->company_fk_id]);
 
         return $dataProvider;
+    }
+    public function count(){
+        $count = (new \yii\db\Query())->from('branch')->count();
+        return $count;
     }
 }

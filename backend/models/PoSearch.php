@@ -42,13 +42,16 @@ class PoSearch extends Po
     public function search($params)
     {
         $query = Po::find();
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
 
+            //'count' => $params['noItemShow'],
+        ]);
         $this->load($params);
 
         if (!$this->validate()) {

@@ -47,6 +47,9 @@ class DepartmentSearch extends Department
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
         ]);
 
         $this->load($params);
@@ -73,5 +76,9 @@ class DepartmentSearch extends Department
             ->andFilterWhere(['like', 'branch.branch_name', $this->branch_fk_id]);
 
         return $dataProvider;
+    }
+    public function count(){
+        $count = (new \yii\db\Query())->from('department')->count();
+        return $count;
     }
 }

@@ -47,6 +47,9 @@ class UserSearch extends Usercreate
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
         ]);
 
         $this->load($params);
@@ -72,5 +75,9 @@ class UserSearch extends Usercreate
             ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
+    }
+    public function count(){
+        $count = (new \yii\db\Query())->from('user')->count();
+        return $count;
     }
 }

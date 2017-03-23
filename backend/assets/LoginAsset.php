@@ -14,6 +14,8 @@ class LoginAsset extends AssetBundle
     public $css = [
         'css/bootstrap.min.css',
         'css/material-dashboard.css',
+        'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons',
+        'css/site.css',
         'css/site.css',
     ];
     public $js = [

@@ -18,6 +18,7 @@ use yii\widgets\BaseListView;
 use yii\base\Model;
 use yii\grid\DataColumn;
 use yii\grid\GridViewAsset;
+use yii\helpers\ArrayHelper;
 /**
  * The GridView widget is used to display data in a grid.
  *
@@ -244,6 +245,8 @@ class GridView extends BaseListView
      * This is mainly used by [[Html::error()]] when rendering an error message next to every filter input field.
      */
     public $filterErrorOptions = ['class' => 'help-block'];
+    
+    public $selectpage;
     /**
      * @var string the layout that determines how different sections of the list view should be organized.
      * The following tokens will be replaced with the corresponding section contents:
@@ -252,9 +255,10 @@ class GridView extends BaseListView
      * - `{errors}`: the filter model error summary. See [[renderErrors()]].
      * - `{items}`: the list items. See [[renderItems()]].
      * - `{sorter}`: the sorter. See [[renderSorter()]].
-     * - `{pager}`: the pager. See [[renderPager()]].
+     * - `{pager}`: the pager. See [[renderPager()]]. onchange='$(\"#seleectform\").submit()
      */
-    public $layout = "{summary}\n{items}\n{pager}";
+
+    public $layout = "{selectpage}{items}\n<div class='row'><div class='col-sm-5'>{summary}</div><div class='col-sm-7'>{pager}</div></div>";
 
 
     /**
@@ -262,7 +266,7 @@ class GridView extends BaseListView
      * This method will initialize required property values and instantiate [[columns]] objects.
      */
     public function init()
-    {
+    { 
         parent::init();
         if ($this->formatter === null) {
             $this->formatter = Yii::$app->getFormatter();
@@ -313,6 +317,8 @@ class GridView extends BaseListView
         switch ($name) {
             case '{errors}':
                 return $this->renderErrors();
+            case '{selectpage}':
+                return $this->renderSelectpage();
             default:
                 return parent::renderSection($name);
         }
@@ -326,17 +332,43 @@ class GridView extends BaseListView
     {
         $filterUrl = isset($this->filterUrl) ? $this->filterUrl : Yii::$app->request->url;
         $id = $this->filterRowOptions['id'];
-        $filterSelector = "#$id input, #$id select";
+        $filterSelector = "#$id input, #$id select, #seleectform select";
         if (isset($this->filterSelector)) {
             $filterSelector .= ', ' . $this->filterSelector;
         }
-
+        //print_r($filterSelector); //die;
         return [
             'filterUrl' => Url::to($filterUrl),
             'filterSelector' => $filterSelector,
         ];
+
     }
 
+    public function renderSelectpage()
+    {       
+            $defaultlimit = $this->dataProvider->pagination->pageSize;
+            $filterUrl = isset($this->filterUrl) ? $this->filterUrl : Yii::$app->request->url;
+            $list = array(5,10,20,50,100);
+            $htl='';
+            $noItemShow = Yii::$app->request->get();
+            if(!empty($noItemShow['noItemShow'])){
+                $selitem = $noItemShow['noItemShow'];
+            }else{
+                $selitem = $defaultlimit;
+            }
+            foreach ($list as $value) {
+                if($selitem==$value){ $st = "selected";}else{$st='';}
+                $htl .= '<option value='.$value.' '.$st.'>'.$value.'</option>';
+            }
+        
+            $sel = "<form action='".$filterUrl."' method='get' id='seleectform'>
+                        <select name='noItemShow' id='noItemShow' class='form-group btn btn-info'>
+                            <option value=''>select</option>
+                            ".$htl."
+                        </select>
+                    </form>";
+            return $sel;
+    }
     /**
      * Renders the data models for the grid view.
      */

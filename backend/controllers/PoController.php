@@ -48,7 +48,17 @@ class PoController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionSearchaj()
+    {
+        $searchModel = new CompanySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->renderPartial('_searchaj', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+        
+    }
     /**
      * Displays a single Po model.
      * @param integer $id

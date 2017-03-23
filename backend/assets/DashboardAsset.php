@@ -12,7 +12,7 @@ class DashboardAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        //'css/bootstrap.min.css',
+        'css/bootstrap.min.css',
         'css/material-dashboard.css',
         'http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css',
         'http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons',

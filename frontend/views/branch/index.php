@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'branch_id',
             [
-             'attribute'=>'company_fk_id',
-            'value'=>'companyFk.Company_name',
-            'label'=>'Company Name'
+                'attribute'=>'company_fk_id',
+                'value'=>'companyFk.Company_name',
+                'label'=>'Company Name'
             ],
             'branch_name',
             'branch_created',

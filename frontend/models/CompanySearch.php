@@ -41,10 +41,11 @@ class CompanySearch extends Company
      */
     public function search($params)
     {
+        print_r($params); 
         $query = Company::find();
 
         // add conditions that should always apply here
-
+        // print_r(Yii::$app->request->get());exit();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -68,7 +69,7 @@ class CompanySearch extends Company
             ->andFilterWhere(['like', 'Company_address', $this->Company_address])
             ->andFilterWhere(['like', 'Company_profile', $this->Company_profile])
             ->andFilterWhere(['like', 'Company_status', $this->Company_status]);
-*/
+        */
         $query->orFilterWhere(['like', 'Company_id', $this->Company_name])
             ->orFilterWhere(['like', 'Company_created', $this->Company_name])
             ->orFilterWhere(['like', 'Company_name', $this->Company_name])

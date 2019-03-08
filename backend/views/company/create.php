@@ -27,3 +27,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+<?php //$this->registerJsFile('@web/js/material.min.js');
+?>

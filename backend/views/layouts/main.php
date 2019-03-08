@@ -13,6 +13,7 @@ use frontend\models\AuthAssignment;
 
 DashboardAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -144,7 +145,7 @@ DashboardAsset::register($this);
                     if(Yii::$app->user->identity){
                     $authAssignment = AuthAssignment::find()->where(['user_id' => Yii::$app->user->identity->id])->one(); ?>
                     <b><?= Yii::$app->user->identity->username ?> [<?= $authAssignment->item_name; ?>]</b>
-                    <?php }?>
+                    <?php } ?>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse">
@@ -169,7 +170,7 @@ DashboardAsset::register($this);
                                 <li><a href="#">Another One</a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="dropdown">
                             <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
                                <i class="material-icons">person</i>
                                <p class="hidden-lg hidden-md">Profile</p>
@@ -229,6 +230,7 @@ DashboardAsset::register($this);
 </html>
 <?php $this->endPage() ?>
 <script type="text/javascript">
+
 $(function(){
 
     var url = window.location.pathname, 
@@ -250,9 +252,6 @@ $(function(){
                 $(this).parent('li').removeClass('active');
             }
         });
-
-
-
 });
 </script>
 <script type="text/javascript">
@@ -278,7 +277,7 @@ $(function(){
             data   : form.serialize(),
             success: function (response) 
             {
-                // /$.pjax.reload('#hello'); //for pjax update
+                // $.pjax.reload('#hello'); //for pjax update
                 $('#hello').html(response);
                 console.log(getupdatedata);
             },

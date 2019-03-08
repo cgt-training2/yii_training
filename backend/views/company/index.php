@@ -30,10 +30,9 @@ $this->title = 'Companies';
             <?= GridView::widget([
                 'id'=>'tabledatax',
                     'dataProvider' => $dataProvider,
-                    //'filterModel' => $searchModel,
+                    // 'filterModel' => $searchModel,
                     'options'=>['class'=>'table'],
                     'columns' => [
-                      
 
                         'Company_id',
                         'Company_name',

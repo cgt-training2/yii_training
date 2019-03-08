@@ -5,7 +5,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use backend\models\LoginForm;
 use app\models\BranchSearch;
 use app\models\CompanySearch;
 use app\models\DepartmentSearch;
@@ -18,6 +18,7 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+    public $flash;
     public function behaviors()
     {
         return [
@@ -62,7 +63,7 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {   
+    {
         $branchModel = new BranchSearch();
         $brachCount = $branchModel->count();
         $companyModel = new CompanySearch();
@@ -91,14 +92,27 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        $flash=0;
+        
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->login()){
+                return $this->goBack();
+            }
+            else {
+                $flash=1;
+                Yii::$app->getSession()->setFlash('error', 'You are not Authorized');
+                return $this->render('login', [
+                    'model' => $model,
+                    'flash' => $flash,
+                ]);
+            }
+        }else{
+
             return $this->render('login', [
-                'model' => $model,
-            ]);
+                    'model' => $model,
+                    'flash' => $flash,
+                ]);
         }
     }
 
@@ -110,7 +124,8 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+        $flash=0;
+        //return $this->goHome();
+        return $this->redirect('login');
     }
 }

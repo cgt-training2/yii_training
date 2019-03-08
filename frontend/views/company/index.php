@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id'=>'hello']); ?>    
 
 <?= GridView::widget([
-    'id'=>'tabledatax',
+        'id'=>'tabledatax',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [

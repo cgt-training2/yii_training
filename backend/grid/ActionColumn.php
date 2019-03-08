@@ -37,6 +37,7 @@ class ActionColumn extends Column
     /**
      * @inheritdoc
      */
+    //public $header='Action';
     public $headerOptions = ['class' => 'action-column'];
     /**
      * @var string the ID of the controller that should handle the actions specified here.
@@ -143,10 +144,10 @@ class ActionColumn extends Column
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'eye-open');
-        $this->initDefaultButton('update', 'pencil');
-        $this->initDefaultButton('delete', 'trash', [
-            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+        $this->initDefaultButton('view', 'remove_red_eye');
+        $this->initDefaultButton('update', 'edit');
+        $this->initDefaultButton('delete', 'close', [
+            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete item?'),
             'data-method' => 'post',
         ]);
     }
@@ -163,22 +164,19 @@ class ActionColumn extends Column
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
-                $iconb = $btnclass ='';
+                $bclass ='';
                 switch ($name) {
                     case 'view':
                         $title = Yii::t('yii', 'View');
-                        $iconb = 'remove_red_eye';
-                        $btnclass ='btn btn-info';
+                        $bclass ='btn btn-info';
                         break;
                     case 'update':
                         $title = Yii::t('yii', 'Update');
-                        $iconb = 'edit';
-                        $btnclass ='btn btn-success';
+                        $bclass ='btn btn-success';
                         break;
                     case 'delete':
                         $title = Yii::t('yii', 'Delete');
-                        $iconb ='close';
-                        $btnclass ='btn btn-danger';
+                        $bclass ='btn btn-danger';
                         break;
                     default:
                         $title = ucfirst($name);
@@ -188,8 +186,10 @@ class ActionColumn extends Column
                     'aria-label' => $title,
                     //'class' => $btnclass,
                     'data-pjax' => '0',
+                    'class' => $bclass,
+                    'style' =>'padding:5px;margin: 0px;'
                 ], $additionalOptions, $this->buttonOptions);
-                $icon = Html::tag('i', $iconb, ['class' => "material-icons"]);
+                $icon = Html::tag('i', $iconName, ['class' => "material-icons"]);
                 return Html::a($icon, $url, $options);
             };
         }

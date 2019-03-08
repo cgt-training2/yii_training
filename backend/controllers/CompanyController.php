@@ -18,8 +18,8 @@ class CompanyController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
+
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -34,8 +34,7 @@ class CompanyController extends Controller
      * Lists all Company models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -44,16 +43,16 @@ class CompanyController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionSearchaj()
-    {
+
+    public function actionSearchaj() {
+
         $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->renderPartial('_searchaj', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
-        
+        ]);        
     }
 
     /**
@@ -61,8 +60,8 @@ class CompanyController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -73,8 +72,8 @@ class CompanyController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
+
         if(Yii::$app->user->can('create_company')){
             $model = new Company();
 
@@ -85,7 +84,7 @@ class CompanyController extends Controller
                     'model' => $model,
                 ]);
             }    
-        }else{
+        } else{
             //throw new ForbiddenHttpException;
             Yii::$app->session->setFlash('danger', 'You are not authorized!');
             return $this->redirect(['index']);
@@ -99,8 +98,8 @@ class CompanyController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
+
         if(Yii::$app->user->can('update_company')){
             $model = $this->findModel($id);
 
@@ -124,13 +123,15 @@ class CompanyController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-        if(Yii::$app->user->can('delete_company')){
-            $this->findModel($id)->delete();
+    public function actionDelete($id){
 
+        if(Yii::$app->user->can('delete_company')){
+
+            $this->findModel($id)->delete();
             return $this->redirect(['index']);
-        }else{
+
+        } else{
+            
             //throw new ForbiddenHttpException;
             Yii::$app->session->setFlash('danger', 'You are not authorized!');
             return $this->redirect(['index']);
@@ -144,8 +145,8 @@ class CompanyController extends Controller
      * @return Company the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id){
+
         if (($model = Company::findOne($id)) !== null) {
             return $model;
         } else {

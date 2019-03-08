@@ -18,7 +18,8 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'company_fk_id')->dropDownList(ArrayHelper::map(company::find()->asArray()->all(), 'Company_id', 'Company_name'),['prompt'=>'Choose...','onchange'=>'
         $.post( "'.Yii::$app->urlManager->createUrl('department/listsbranch?id=').'"+$(this).val(), function( data ) {
                   $( "#department-branch_fk_id" ).html( data );
-                });']); ?>
+                });']); 
+    ?>
 
 
     <?php // $form->field($model, 'company_fk_id')->dropDownList(ArrayHelper::map(company::find()->asArray()->all(), 'Company_id', 'Company_name'),['prompt'=>'Choose...','onchange'=>'getBranchlist(this.value)']); ?>
@@ -57,11 +58,3 @@ use dosamigos\datepicker\DatePicker;
     <?php ActiveForm::end(); ?>
 
 </div>
-<script type="text/javascript">
-    function getBranchlist(id){    
-        alert('hi');
-        $.post( <?= Yii::$app->urlManager->createUrl('department/listsbranch?id=')?>id, function( data ) {
-               $( "department-branch_fk_id" ).html( data );
-             });
-    }
-</script>

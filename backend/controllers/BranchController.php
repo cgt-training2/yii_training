@@ -20,17 +20,6 @@ class BranchController extends Controller
     public function behaviors()
     {
         return [
-            /*'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['branch'],
-                'rules' => [
-                    [
-                        'actions' => ['branch'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                ],
-            ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -159,6 +148,11 @@ class BranchController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    public function init(){
+        if(!Yii::$app->user->identity){
+            $this->redirect(array('/site/login'));
         }
     }
 }

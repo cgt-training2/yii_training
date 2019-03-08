@@ -41,12 +41,16 @@ class UserSearch extends Usercreate
      */
     public function search($params)
     {
+        // print_r($params); 
         $query = Usercreate::find();
-
+        // print_r($params);exit();
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
         ]);
 
         $this->load($params);

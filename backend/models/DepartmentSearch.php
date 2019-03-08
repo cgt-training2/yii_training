@@ -47,6 +47,9 @@ class DepartmentSearch extends Department
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => (!empty($params['noItemShow'])) ? $params['noItemShow'] : 10,
+            ],
         ]);
 
         $this->load($params);

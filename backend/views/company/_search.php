@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?php // $form->field($model, 'Company_id') ?>
 
-    <?= $form->field($model, 'Company_name',['options'=>['tag' => 'div','class' => 'form-group label-floating'],'template' => '{label}{input}{error}{hint}'])->textInput(['autocomplete' => 'off','id'=>'searbarsearch'])->label("Search") ?>
+    <?php echo $form->field($model, 'Company_name',['options'=>['tag' => 'div','class' => 'form-group label-floating'],'template' => '{label}{input}{error}{hint}'])->textInput(['autocomplete' => 'off','id'=>'searbarsearch'])->label("Search") ?>
 
     <?php  ActiveForm::end(); ?>
 

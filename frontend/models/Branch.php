@@ -58,16 +58,16 @@ class Branch extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCompanyFk()
-    {
+    public function getCompanyFk() {
+
         return $this->hasOne(Company::className(), ['Company_id' => 'company_fk_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDepartments()
-    {
+    public function getDepartments() {
+
         return $this->hasMany(Department::className(), ['branch_fk_id' => 'branch_id']);
     }
 
@@ -75,8 +75,8 @@ class Branch extends \yii\db\ActiveRecord
      * @inheritdoc
      * @return BranchQuery the active query used by this AR class.
      */
-    public static function find()
-    {
+    public static function find() {
+        
         return new BranchQuery(get_called_class());
     }
 

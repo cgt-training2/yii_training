@@ -69,8 +69,8 @@ class UserroleController extends Controller
         $authItems = AuthItem::find()->where(['type' => '2'])->all();
         $authitemchilds = new AuthItemChild();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
            $data = Yii::$app->request->post();
+           // print_r($data['AuthItemChild']['child']);exit();
            foreach ($data['AuthItemChild']['child'] as $key => $value) {
                $authitemch = new AuthItemChild();
                $authitemch->parent = $model->name;

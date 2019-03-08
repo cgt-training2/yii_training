@@ -20,6 +20,11 @@ $this->title = 'Login';
                     <p class="category">Please fill out the following fields to login:</p>
                 </div>
                 <div class="card-content">
+                    <?php 
+                        if ($flash) {
+                            echo Yii::$app->session->getFlash('error');
+                        }
+                    ?>
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                     <div class="input-group">
                     <span class="input-group-addon">

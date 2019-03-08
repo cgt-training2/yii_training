@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use backend\grid\GridView;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,8 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-       <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+       <?php  // echo $this->render('_search', ['model' => $searchModel]); ?>
        <div class="card-content table-responsive">
+            <?php  Pjax::begin(['id'=>'hello']); ?>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
@@ -34,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filterInputOptions' => [
                                 'class'       => 'form-control',
                                 'placeholder' => 'id'
-                             ]
+                             ],
+                             
                         ],
                         [
                             'attribute' => 'po_no',
@@ -53,7 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     ['class' => 'backend\grid\ActionColumn'],
                 ],
+                
             ]); ?>
+            <?php Pjax::end(); ?>
         </div>
     </div>
 </div>
